@@ -22,7 +22,7 @@
    name=dcterms.identifier>
   <link href="#contents" rel=contents>
   <link href="#index" rel=index>
-  <link href="../default.css" rel=stylesheet type="text/css">
+  <link href="https://drafts.csswg.org/default.css" rel=stylesheet type="text/css">
   <style type="text/css">
     .prod { font-family: inherit; font-size: inherit }
     pre.prod { white-space: pre-wrap; margin: 1em 0 1em 2em }
@@ -36,6 +36,7 @@
   <script defer=defer
    src="https://test.csswg.org/harness/annotate.js#css-backgrounds-3_dev"
    type="text/javascript"></script>
+  <link href="custom.css" rel="stylesheet" type="text/css">
 
  <body>
   <div class=head> <!--begin-logo-->
@@ -118,6 +119,8 @@
    <!--end-copyright-->
    <hr title="Separator for header">
   </div>
+
+  <p class="note ynote">本文中的注解是 Ivan Yan 的笔记，仅供参考，<a href="https://github.com/ynotes/css-backgrounds/">编辑</a>。</p>
 
   <h2 class="no-num no-toc" id=abstract>Abstract</h2>
 
@@ -435,6 +438,8 @@
     rel=biblioentry>[CSS21]<!--{{!CSS21}}--></a>.)
   </div>
 
+  <p class="note ynote">盒模型中，margin 跟背景和边框无关。</p>
+
   <p>The properties of this module deal with the decoration of the border
    area and with the background of the content, padding and border areas.
    Additionally the box may be given a "drop-shadow" effect with the ‘<a
@@ -544,12 +549,16 @@
    of ‘<a href="#box-shadow-none"><code class=property>none</code></a>’
    still creates a layer.
 
+   <p class="note ynote">box 可以有多个背景层，由 background-image 以一个逗号分隔的列表的方式指定。none 值也创建一个层。</p>
+
   <p>Each of the images is sized, positioned, and tiled according to the
    corresponding value in the other background properties. The lists are
    matched up from the first value: excess values at the end are not used. If
    a property doesn't have enough comma-separated values to match the number
    of layers, the <a href="#ua">UA</a> must calculate its used value by
    repeating the list of values until there are enough.
+
+   <p class="note ynote">每个背景的大小、定位、铺设由相应的背景属性指定。这些背景属性的值也是一个逗号分隔的列表，并且与 background-image 的值对应，如果长了则截短，如果短了则重复列表项补长。</p>
 
   <div class=example>
    <p>For example, this set of declarations:
@@ -579,6 +588,8 @@ background-repeat: no-repeat<strong>, no-repeat, no-repeat</strong>;
   <p>The first image in the list is the layer closest to the user, the next
    one is painted behind the first, and so on. The background color, if
    present, is painted below all of the other layers.
+
+   <p class="note ynote">background-image 列表第一项在最上面，即最靠近用户，第二项在第一项的下面，依此类推。背景色在最下面。</p>
 
   <p class=note>Note that the <a href="#border-images">border-image
    properties</a> can also define a background image, which, if present, is
@@ -640,6 +651,8 @@ background-repeat: no-repeat<strong>, no-repeat, no-repeat</strong>;
   <p>This property sets the <span class=index id=background-color0
    title="color!!background">background color</span> of an element. The color
    is drawn behind any background images.
+
+   <p class="note ynote">设置背景色，背景色在背景图片的下面。</p>
 
   <div class=example>
    <p>Example:
@@ -855,6 +868,8 @@ div { background-image: url(tl.png), url(tr.png) }
    value has two keywords, the first one is for the horizontal direction, the
    second for the vertical one, as follows:
 
+   <p class="note ynote">repeat-style 值为两个关键字时，第一个指定水平方向，第二个指定垂直方向。</p>
+
   <dl>
    <dt><dfn id=repeat title="''repeat''!!'background-repeat' value">‘<code
     class=css>repeat</code>’</dfn>
@@ -1032,6 +1047,7 @@ body {
     href="#ref-CSS21" rel=biblioentry>[CSS21]<!--{{!CSS21}}--></a>), a ‘<a
     href="#fixed0"><code class=css>fixed</code></a>’ background doesn't
     move with the element.</span>
+    <p class="note ynote">'fixed' 背景相对于 viewport 固定。</p>
 
    <dt><dfn id=local0>local</dfn>
 
@@ -1234,6 +1250,7 @@ h1 {
      background image</var>), where the size of the image is the size given
      by ‘<a href="#background-size"><code
      class=property>background-size</code></a>’.
+     <p class="note ynote">百分数是基于一个差值，假设背景定位区域长度为 A，背景图片长度为 a，百分数为 x，则偏移值为 <br> (A - a) * x。</p>
 
     <div class=example>
      <p>For example, with a value pair of ‘<code class=css>0% 0%</code>’,
@@ -1610,6 +1627,8 @@ body {
   <pre class=prod><dfn
    id=bg-size><var>&lt;bg-size&gt;</var></dfn> = [ <var>&lt;length-percentage&gt;</var> | auto ]{1,2} | cover | contain</pre>
 
+   <p class="note ynote">指定背景图片的尺寸。</p>
+
   <p>Values have the following meanings:
 
   <dl>
@@ -1620,11 +1639,15 @@ body {
     inside the <a class=index href="#background-positioning-area"
     id=background-positioning-area.0>background positioning area.</a>
 
+	<p class="note ynote">缩小图片直到图片包含在背景定位区域内。</p>
+
    <dt><dfn id=cover>‘<code class=css>cover</code>’</dfn>
 
    <dd>Scale the image, while preserving its intrinsic aspect ratio (if any),
     to the smallest size such that both its width and its height can
     completely cover the background positioning area.
+
+	<p class="note ynote">放大图片直到图片覆盖背景定位区域。</p>
 
    <dt>[ <var>&lt;length-percentage&gt;</var> | <dfn id=auto
     title="''auto''!!'background-size' value">auto</dfn> ]{1,2}
@@ -1634,12 +1657,18 @@ body {
      value its height. If only one value is given the second is assumed to be
      ‘<code class=css>auto</code>’.
 
+	 <p class="note ynote">第一个值指定图片的宽，第二个值指定图片的高。如果只指定一个值，没指定的视为 auto。</p>
+
     <p>A percentage is relative to the background positioning area.
+
+	<p class="note ynote">百分数是基于背景定位区域。</p>
 
     <p>An ‘<code class=css>auto</code>’ value for one dimension is
      resolved by using the image's intrinsic ratio and the size of the other
      dimension, or failing that, using the image's intrinsic size, or failing
      that, treating it as 100%.
+
+	 <p class="note ynote">auto 的计算值由图片比例得出，若不能则使用内在尺寸，若还不能则按 100% 处理。</p>
 
     <p>If both values are ‘<code class=css>auto</code>’ then the
      intrinsic width and/or height of the image should be used, if any, the
@@ -1648,7 +1677,11 @@ body {
      intrinsic height, its size is determined as for ‘<a
      href="#contain"><code class=css>contain</code></a>’.
 
+	 <p class="note ynote">当两个值都是 auto 时，如果图片的宽和高有一个是内在尺寸，则按上面规则处理；如果都不是内在尺寸，按 contain 处理。</p>
+
     <p>Negative values are not allowed.
+
+	<p class="note ynote">不能为负值。</p>
   </dl>
 
   <div class=example>
@@ -1896,6 +1929,8 @@ div {
    class=property>background-color</code></a>’ is set to the specified
    color, if any, else set to its initial value.
 
+   <p class="note ynote">background 是缩写属性。1) background-position / backgound-size，两者之间有一个 '/'。 2) 逗号列表指定多层背景，只有最后一层背景可以指定 background-color。</p>
+
   <p>If one <a href="#box"><var>&lt;box&gt;</var></a> value is present
    then it sets both ‘<a href="#background-origin"><code
    class=property>background-origin</code></a>’ and ‘<a
@@ -1905,6 +1940,8 @@ div {
    class=property>background-origin</code></a>’ and the second ‘<a
    href="#background-clip"><code
    class=property>background-clip</code></a>’.
+
+   <p class="note ynote">只有一个 &lt;box&gt 时则同时设置 background-origin 和 background-clip。有两个时，第一个设置 background-origin，第二个设置 background-clip。</p>
 
   <div class=example>
    <p style="display:none">Examples:
@@ -2024,6 +2061,8 @@ background-color:      white;
   <p>If the canvas background is not opaque, what shows through is
    UA-dependent.
 
+   <p class="note ynote">document canvas 没有对应的元素，root 元素的背景冒泡给 document canvas。</p>
+
   <h4 id=root-background><span class=secno>3.11.1. </span> The Canvas
    Background and the Root Element</h4>
 
@@ -2037,6 +2076,8 @@ background-color:      white;
    <em>positioning</em> area</a> is determined as for the root element.) The
    root element does not paint this background again, i.e., the used value of
    its background is transparent.
+
+   <p class="note ynote">root 元素的背景绘制区域扩展到整个 document canvas。</p>
 
   <h4 id=body-background><span class=secno>3.11.2. </span> The Canvas
    Background and the HTML &lt;body&gt; Element</h4>
@@ -2060,6 +2101,7 @@ background-color:      white;
    element. It is recommended that authors of HTML documents specify the
    canvas background for the <code class=html>BODY</code> element rather than
    the <code class=html>HTML</code> element.
+   <p class="note ynote">如果 <code>html { background-image: none; background-color: transparent; }</code>, 则 &lt;body&gt; 的背景冒泡给 &lt;html&gt;。</p>
 
   <div class=example>
    <p>According to these rules, the canvas underlying the following HTML
@@ -2347,6 +2389,8 @@ background-color:      white;
     class=property>border-image-width</code></a>’ will also resolve to
     zero.
 
+	<p class="note ynote">没有边框。</p>
+
    <dt><dfn id=hidden>‘<code class=css>hidden</code>’</dfn>
 
    <dd> Same as ‘<a href="#box-shadow-none"><code
@@ -2354,17 +2398,25 @@ background-color:      white;
     border conflict resolution rules for border-collapsed tables <a
     href="#ref-CSS21" rel=biblioentry>[CSS21]<!--{{!CSS21}}--></a>.
 
+	<p class="note ynote">同 none。不过当表格边框合并时，hidden 则没有边框，none 还得看其它元素的边框，详细见 <a href="https://drafts.csswg.org/css2/tables.html#border-conflict-resolution">Border conflict resolution rules</a>。</p>
+
    <dt><dfn id=dotted>‘<code class=css>dotted</code>’</dfn>
 
    <dd> A series of round dots.
+
+   <p class="note ynote">点线边框。</p>
 
    <dt><dfn id=dashed>‘<code class=css>dashed</code>’</dfn>
 
    <dd> A series of square-ended dashes.
 
+   <p class="note ynote">虚线边框。</p>
+
    <dt><dfn id=solid>‘<code class=css>solid</code>’</dfn>
 
    <dd> A single line segment.
+
+   <p class="note ynote">实线边框。</p>
 
    <dt><dfn id=double>‘<code class=css>double</code>’</dfn>
 
@@ -2869,6 +2921,8 @@ blockquote {
    border box, whereas percentages for the vertical radius refer to the
    height of the border box. Negative values are not allowed.
 
+   <p class="note ynote">border-*-radius 指定一个椭圆的两个半轴，这个椭圆是边框外边缘的形状。第一个值指定椭圆的水平半轴，第二个值指定椭圆的垂直半轴。如果没有指定第二个值，则它与第一个值相同。如果其中一个值是 0，则边框的角是方的，不是圆的。值为百分数时，水平半轴相对于 border-box 的宽，垂直半轴相对于 border-box 的高。不能是负值。</p>
+
   <div class=figure>
    <p><img alt="Diagram of the inscribed ellipse" src="images/corner.png">
 
@@ -2899,6 +2953,8 @@ DIV.standout {
    bottom-right, bottom-left. If bottom-left is omitted it is the same as
    top-right. If bottom-right is omitted it is the same as top-left. If
    top-right is omitted it is the same as top-left.
+
+   <p class="note ynote">border-radius 是缩写属性。斜杆前面指定四个水平半轴，后面指定四个垂直半轴，顺序为从左上角顺时针方向。补全同 border。</p>
 
   <div class=example>
    <pre>
@@ -3133,11 +3189,15 @@ border-radius: 0.5em 2em 0.5em 2em
    href="#border-style"><code class=property>border-style</code></a>’
    properties only.
 
+   <p class="note ynote">可以用图片替换边框样式。border-image 不影响布局。</p>
+
   <div class=example>
    <p>This example creates a top and bottom border consisting of a whole
     number of orange diamonds and a left and right border of a single,
     stretched diamond. The corners are diamonds of a different color. The
     image to tile is as follows. Apart from the diamonds, it is transparent:
+
+	<p class="note ynote">这个例子，上下边框为多个平铺的钻石，左右边框为一个拉伸的钻石，边框的四角为一个钻石。边框图片如下，除了钻石图案外，其它部分是透明的。</p>
 
    <p><img alt="Tile for border" src="images/border.png">
 
@@ -3195,6 +3255,8 @@ DIV {
     into the margin area. If the border-image fails to load (or border images
     are not supported by the UA), the fallback rendering uses a green double
     border.
+
+	<p class="note ynote">虽然 border-width 为 12px，但是 border-image-width 为 124px。border-image-outside: 31px 让边框背景区域超出 border-box 31px。</p>
   </div>
 
   <div class=example id=border-image-border-shorthand-example>
@@ -3289,6 +3351,8 @@ DIV {
    class=property>border-style</code></a>’ borders are not drawn and the
    border image is drawn as described in the sections below.
 
+   <p class="note ynote">指定边框图片。如果图片下载失败或者 UA 不支持边框图片，则应用 border-style。</p>
+
   <h3 id=the-border-image-slice><span class=secno>6.2. </span>Image Slicing:
    the ‘<a href="#border-image-slice"><code
    class=property>border-image-slice</code></a>’ property</h3>
@@ -3354,16 +3418,22 @@ DIV {
    background; see <a href="#border-image-process">Drawing the Border
    Image</a>.)
 
+   <p class="note ynote">指定相对于边框图片四条边的偏移，从而将它分成 9 块：四个角，四条边和一个中间块，中间块视为透明的，除非指定了 fill。</p>
+
   <p>When four values are specified, they set the offsets on the top, right,
    bottom and left sides in that order. If the left is missing, it is the
    same as the right; if the bottom is missing, it is the same as the top; if
    the right is missing, it is the same as the top.
+
+   <p class="note ynote">四个值的补全同 border。</p>
 
   <dl>
    <dt><var>&lt;percentage&gt;</var>
 
    <dd>Percentages are relative to the size of the image: the width of the
     image for the horizontal offsets, the height for vertical offsets.
+
+	<p class="note ynote">水平方向上的偏移相对于图片的宽；垂直方向上的偏移相对于图片的高。</p>
 
    <dt><var>&lt;number&gt;</var>
 
@@ -3382,6 +3452,8 @@ DIV {
   <p>Negative values are invalid. Computed values larger than the size of the
    image are interpreted as ‘<code class=css>100%</code>’.
 
+   <p class="note ynote">值不能为负数。大于图片尺寸时视为 100%。</p>
+
   <p>The regions given by the ‘<a href="#border-image-slice"><code
    class=property>border-image-slice</code></a>’ values may overlap.
    However if the sum of the right and left widths is equal to or greater
@@ -3389,6 +3461,8 @@ DIV {
    the middle part are empty, which has the same effect as if a nonempty
    transparent image had been specified for those parts. Analogously for the
    top and bottom values.
+
+   <p class="note ynote">如果分块发生了重叠，比如左右两个值加起来等于或大于图片的宽，则上中下三块就是空的。</p>
 
   <p>If the image must be sized to determine the slices (for example, for SVG
    images with no intrinsic size), then it is sized using the <a
@@ -3470,6 +3544,8 @@ DIV {
    href="#border-image-outset"><code
    class=property>border-image-outset</code></a>’.
 
+   <p class="note ynote">边框图片绘制在边框图片区域中。边框图片区域默认为 border-box，见 border-image-outset。</p>
+
   <p>The four values of ‘<a href="#border-image-width"><code
    class=property>border-image-width</code></a>’ specify offsets that are
    used to divide the border image area into nine parts. They represent
@@ -3478,16 +3554,22 @@ DIV {
    right; if the bottom is missing, it is the same as the top; if the right
    is missing, it is the same as the top. Values have the following meanings:
 
+   <p class="note ynote">这个属性指定相对边框图片区域四条边的偏移，从而将边框图片区域分成 9 块。四个值的补全同 border。</p>
+
   <dl>
    <dt><var>&lt;percentage&gt;</var>
 
    <dd>Percentages refer to the size of the border image area: the width of
     the area for horizontal offsets, the height for vertical offsets.
 
+	<p class="note ynote">水平方向上的偏移相对于边框图片区域的宽；垂直方向上的偏移相对于边框图片区域的高。</p>
+
    <dt><var>&lt;number&gt;</var>
 
    <dd>Numbers represent multiples of the corresponding computed <a
     href="#the-border-width">border-width</a>.
+
+	<p class="note ynote">对应 border-width 的倍数。</p>
 
    <dt><dfn id=auto0 title="''auto''!!'border-image-width' value">‘<code
     class=css>auto</code>’</dfn>
@@ -3504,6 +3586,8 @@ DIV {
    href="#border-image-width"><code
    class=property>border-image-width</code></a>’ values.
 
+   <p class="note ynote">值不能为负数。</p>
+
   <p>If two opposite ‘<a href="#border-image-width"><code
    class=property>border-image-width</code></a>’ offsets are large enough
    that they overlap, then the used values of all ‘<a
@@ -3518,6 +3602,8 @@ DIV {
    <var>L<sub>height</sub></var>/(<var>W<sub>top</sub></var>+<var>W<sub>bottom</sub></var>)).
    If <var>f</var> &lt; 1, then all <var>W</var> are reduced by multiplying
    them by <var>f</var>.
+
+   <p class="note ynote">如果相对的两个块重叠，则按比例减小直到不重叠。</p>
 
   <h3 id=the-border-image-outset><span class=secno>6.4. </span>Edge Overhang:
    the ‘<a href="#border-image-outset"><code
@@ -3581,6 +3667,8 @@ DIV {
    the right; if the bottom is missing, it is the same as the top; if the
    right is missing, it is the same as the top.
 
+   <p class="note ynote">指定背景图片区域超出 border-box 多少。四个值的补全同 border。</p>
+
   <dl>
    <dt><var>&lt;length&gt;</var>
 
@@ -3592,6 +3680,8 @@ DIV {
    <dd>Represents an outset of the specified multiple of the corresponding
     computed <a href="#the-border-width">border-width</a>. Negative values
     are invalid.
+
+	<p class="note ynote">对应 border-width 的倍数。</p>
   </dl>
 
   <p>Portions of the border-image that are rendered outside the border box do
@@ -3601,6 +3691,8 @@ DIV {
   <p class=note>Note that, even though they never cause a scrolling
    mechanism, outset images may still be clipped by an ancestor or by the
    viewport.
+
+   <p class="note ynote">背景图片不影响布局，超出了 border-box 不会出现滚动条，也不会响应鼠标点击事件，但是仍然会被祖先元素裁剪。</p>
 
   <h3 id=the-border-image-repeat><span class=secno>6.5. </span>Image Tiling:
    the ‘<a href="#border-image-repeat"><code
@@ -3663,16 +3755,22 @@ DIV {
    keyword is absent, it is assumed to be the same as the first. Values have
    the following meanings:
 
+   <p class="note ynote">指定边框图片的 9 小块如何缩放和平铺。第一个关键字用于水平的块，第二个用于垂直的块。如果省略第二个，则它同第一个。</p>
+
   <dl>
    <dt><dfn id=stretch>‘<code class=css>stretch</code>’</dfn>
 
    <dd>The image is stretched to fill the area.
+
+   <p class="note ynote">拉伸图片。</p>
 
    <dt><dfn id=repeat0
     title="''repeat''!!'border-image-repeat' value">‘<code
     class=css>repeat</code>’</dfn>
 
    <dd>The image is tiled (repeated) to fill the area.
+
+   <p class="note ynote">平铺图片，图片可能不完整。</p>
 
    <dt><dfn id=round0 title="''round''!!'border-image-repeat' value">‘<code
     class=css>round</code>’</dfn>
@@ -3681,12 +3779,16 @@ DIV {
     the area with a whole number of tiles, the image is rescaled so that it
     does.
 
+	<p class="note ynote">平铺图片，如果图片不完整，则缩放图片让图片完整。</p>
+
    <dt><dfn id=space0 title="''space''!!'border-image-repeat' value">‘<code
     class=css>space</code>’</dfn>
 
    <dd>The image is tiled (repeated) to fill the area. If it does not fill
     the area with a whole number of tiles, the extra space is distributed
     around the tiles.
+
+	<p class="note ynote">平铺图片，如果图片不完整，则在图片之间添加空白让图片完整。</p>
   </dl>
 
   <p>The exact process for scaling and tiling the border-image parts is given
@@ -3887,6 +3989,8 @@ DIV {
    is recommended that UAs do not apply border images to tables with
    collapsed borders until then.
 
+   <p class="note ynote">border-image 在表格上细节不明，不建议使用。</p>
+
   <h2 id=misc><span class=secno>7. </span>Miscellaneous Effects</h2>
 
   <p class=note> The ‘<code class=property>box-decoration-break</code>’
@@ -3956,6 +4060,8 @@ DIV {
    indicates no shadows, or a comma-separated list of shadows, ordered front
    to back.
 
+   <p class="note ynote">box-shadow 为 box 添加一个或多个阴影。多个阴影由一个逗号分隔的列表指定。</p>
+
   <p>Each shadow is given as a <a
    href="#shadow"><var>&lt;shadow&gt;</var></a>, represented by 2-4
    length values, an optional color, and an optional ‘<a
@@ -3966,6 +4072,8 @@ DIV {
   <pre class=prod>
   <dfn
    id=shadow><var>&lt;shadow&gt;</var></dfn> = inset? &amp;&amp; <var>&lt;length&gt;</var>{2,4} &amp;&amp; <var>&lt;color&gt;</var>?</pre>
+
+   <p class="note ynote">&lt;shadow&gt; 至少要指定两个长度。</p>
 
   <p>The components of each <a
    href="#shadow"><var>&lt;shadow&gt;</var></a> are interpreted as
@@ -3978,10 +4086,14 @@ DIV {
     the shadow. A positive value draws a shadow that is offset to the right
     of the box, a negative length to the left.
 
+	<p class="note ynote">指定阴影的水平偏移。正值向右偏移，负值向左偏移。</p>
+
    <dt><dfn id=shadow-offset-y title="">2nd <var>&lt;length&gt;</var></dfn>
 
    <dd> Specifies the <dfn id=vertical-offset>vertical offset</dfn> of the
     shadow. A positive value offsets the shadow down, a negative one up.
+
+	<p class="note ynote">指定阴影的垂直偏移。正值向下偏移，负值向上偏移。</p>
 
    <dt><dfn id=shadow-blur-radius title="">3rd
     <var>&lt;length&gt;</var></dfn>
@@ -3990,6 +4102,8 @@ DIV {
     are not allowed. If the blur value is zero, the shadow’s edge is sharp.
     Otherwise, the larger the value, the more the shadow’s edge is blurred.
     See <a href="#shadow-blur">Shadow Blurring</a>, below.
+
+	<p class="note ynote">指定模糊半径。不能为负值。为 0 时阴影边缘锋利。值越大边缘越模糊。</p>
 
    <dt><dfn id=shadow-spread-distance title="">4th
     <var>&lt;length&gt;</var></dfn>
@@ -4001,10 +4115,14 @@ DIV {
     <p class=note>Note that for inner shadows, expanding the shadow (creating
      more shadow area) means contracting the shadow’s perimeter shape.
 
+	 <p class="note ynote">指定阴影扩展距离。为正值时阴影扩张，为负值时阴影收缩。</p>
+
    <dt><dfn id=shadow-color title=""><var>&lt;color&gt;</var></dfn>
 
    <dd> Specifies the color of the shadow. If the color is absent, the used
     color is taken from the ‘<code class=property>color</code>’ property.
+
+	<p class="note ynote">指定阴影的颜色。不指定时使用 color 属性的值。</p>
 
    <dt><dfn id=shadow-inset title="">‘<code class=css>inset</code>’</dfn>
 
@@ -4015,6 +4133,8 @@ DIV {
     id=inner-box-shadow>inner box-shadow</dfn> (one that shadows the canvas
     onto the box, as if the box were cut out of the canvas and shifted behind
     it).
+
+	<p class="note ynote">指定阴影为内阴影。</p>
   </dl>
 
   <div class=example>
@@ -4197,6 +4317,8 @@ DIV {
    background of that element, and the <i>inner shadows</i> of an element are
    drawn immediately above the background of that element (below the borders
    and border image, if any).
+
+   <p class="note ynote">阴影从前往后添加：第一个阴影在最上面，其它的阴影在下面。阴影不影响布局，可能和其它 box 或其阴影重叠。从堆叠上下文看，外阴影在背景的下面，内阴影在背景的上面边框和边框图片的下面。</p>
 
   <p>If an element has multiple boxes, all of them get drop shadows, but
    shadows are only drawn where borders would also be drawn; see ‘<code
